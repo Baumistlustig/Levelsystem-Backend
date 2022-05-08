@@ -7,6 +7,7 @@ import { getUser } from "./modules/user.js";
 import { pageNotFound } from "./modules/error/pagenotfound.js";
 import { register } from "./modules/register.js";
 import { login } from "./modules/login.js";
+import { leaderboard } from "./modules/leaderboard.js";
 
 // Const
 const app = express();
@@ -36,7 +37,7 @@ app.use(express.urlencoded({extended: false}));
 
 
 // Root-Page
-app.all('/', (req, res, next) =>{
+app.all('/', (req, res) =>{
     res.send('<p>Root Page</p>');
     console.log(`Request by ${req.ip}\n`);
 });
@@ -56,6 +57,10 @@ app.post('/api/register', (req, res) => {
 app.post('/api/login', (req, res) => {
     login(req, res);
 });
+
+app.get('/api/leaderboard', (req, res) => {
+    leaderboard(req, res);
+})
 
 // PageNotFound
 app.use(function(req,res){
