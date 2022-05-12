@@ -1,11 +1,12 @@
-import * as http from "http";
+import * as https from "https";
 
-
-function getOptions(port, host, path) {
+function getOptions(port, host, path, method, headers) {
     return {
         port: port,
         host: host,
-        path: path
+        path: path,
+        method: method,
+        headers: headers,
     };
 }
 
@@ -24,4 +25,11 @@ function callback(response) {
     });
 }
 
-http.request(getOptions(8090, '0.0.0.0', '/api/user/baumistlustig'), callback).end();
+https.request(getOptions(8090,
+    '0.0.0.0',
+    '/api/user/baumistlustig',
+    'POST',
+    {
+                'Content-Type': 'application/json'
+            }
+), callback).end();

@@ -1,5 +1,4 @@
 import express from 'express';
-import mysql from 'mysql';
 import helmet from 'helmet';
 
 // Modules
@@ -8,6 +7,7 @@ import { pageNotFound } from "./modules/error/pagenotfound.js";
 import { register } from "./modules/register.js";
 import { login } from "./modules/login.js";
 import { leaderboard } from "./modules/leaderboard.js";
+import { messageCreate } from "./modules/messages.js";
 
 // Const
 const app = express();
@@ -15,19 +15,7 @@ const port = 8090;
 
 
 // Database
-const db_connection = mysql.createConnection({
-    host: "192.168.0.27:3306",
-    user: "root",
-    password: "",
-});
 
-db_connection.connect((err) => {
-    if (err) {
-        console.log(`Error occurred ${err}\n`);
-    } else {
-        console.log(`Connected to MySQL Server: ${db_connection}\n`);
-    }
-});
 
 
 // Middleware
@@ -43,29 +31,28 @@ app.all('/', (req, res) =>{
 });
 
 
-// User-Page
-app.get('/api/user/:userName', (req, res) => {
-    getUser(req, res);
-});
+// ----------- GET ----------- //
 
+// Leaderboard
+app.get('/api/leaderboard', leaderboard);
+
+// User-Page
+app.get('/api/user/:userName', getUser);
+
+
+// ----------- POST ----------- //
+
+// Login
+app.post('/api/login', login);
 
 // Register
-app.post('/api/register', (req, res) => {
-    register(req, res);
-});
+app.post('/api/register', register);
 
-app.post('/api/login', (req, res) => {
-    login(req, res);
-});
-
-app.get('/api/leaderboard', (req, res) => {
-    leaderboard(req, res);
-})
+// Messages
+app.post('/api/message', messageCreate);
 
 // PageNotFound
-app.use(function(req,res){
-    pageNotFound(req, res);
-});
+app.use(pageNotFound);
 
 
 // Startup

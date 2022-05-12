@@ -3,5 +3,5 @@ export function login(req, res) {
 
     res.send(
         '<p>Coming soon</p>'
-    )
+    );
 }

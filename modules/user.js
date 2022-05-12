@@ -1,10 +1,10 @@
-export function getUser(req, res) {
-    console.log(`User request by ${req.ip} to ${req.params.userName}\n`)
+export function getUser(req, res, next) {
+    let username = req.params.userName; // Name from Database
+
+    console.log(`User request by ${req.ip} to ${username}\n`)
+
 
     //TODO: Send request to database => if req.params.userName exists, get this data
-
-
-    let username = req.params.userName; // Name from Database
 
     if (username === 'baumistlustig') {
         res.json(
@@ -12,12 +12,12 @@ export function getUser(req, res) {
                 "experience": 1337,
                 "online": true
             }
-        )
+        );
     } else {
         res.json(
             {
                 "existing": false
             }
-        )
+        );
     }
 }

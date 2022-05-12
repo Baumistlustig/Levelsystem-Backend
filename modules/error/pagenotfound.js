@@ -1,4 +1,4 @@
-export function pageNotFound(req, res) {
+export function pageNotFound(req, res, next) {
     console.log(`PageNotFound IP: ${req.ip} Path: ${req.path}\n`)
     res.status(
         404
@@ -6,5 +6,7 @@ export function pageNotFound(req, res) {
         {
             "Error: ": 404
         }
-    )
+    );
+
+    next();
 }
