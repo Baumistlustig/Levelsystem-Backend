@@ -4,9 +4,11 @@ export function messageCreate(req, res) {
 
     //TODO: Send Request to database and ask if user exists
 
+
     res.json(
         {
-            'success': true
+            'success': true,
+            'username': user
         }
     );
 }

@@ -1,4 +1,4 @@
-export function leaderboard(req, res) {
+export async function leaderboard(req, res) {
     console.log(`Leaderboard request by ${req.ip}\n`);
 
     //TODO: Send request to database of the highest experience score

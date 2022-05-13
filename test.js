@@ -1,35 +1,15 @@
-import * as https from "https";
+import request from 'request'
 
-function getOptions(port, host, path, method, headers) {
-    return {
-        port: port,
-        host: host,
-        path: path,
-        method: method,
-        headers: headers,
-    };
-}
+const options = {
+    url: 'http://localhost:8090/api/message',
+    form: {
+        author: 'test'
+    }
+};
 
-
-function callback(response) {
-    let str = '';
-
-    //another chunk of data has been received, so append it to `str`
-    response.on('data', function (chunk) {
-        str += chunk;
-    });
-
-    //the whole response has been received, so we just print it out here
-    response.on('end', function () {
-        console.log(str);
-    });
-}
-
-https.request(getOptions(8090,
-    '0.0.0.0',
-    '/api/user/baumistlustig',
-    'POST',
-    {
-                'Content-Type': 'application/json'
-            }
-), callback).end();
+request.post(options, (err, res, body) => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log(JSON.parse(body));
+});

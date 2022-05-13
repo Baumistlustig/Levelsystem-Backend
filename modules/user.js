@@ -1,23 +1,13 @@
-export function getUser(req, res, next) {
-    let username = req.params.userName; // Name from Database
+import { dataBase } from "./database.js";
+
+export async function getUser(req, res) {
+    let username = req.params.userName.toLowerCase(); // Name from Database
 
     console.log(`User request by ${req.ip} to ${username}\n`)
 
+    let result = await dataBase('find', {name: `${username}`});
 
-    //TODO: Send request to database => if req.params.userName exists, get this data
-
-    if (username === 'baumistlustig') {
-        res.json(
-            {
-                "experience": 1337,
-                "online": true
-            }
-        );
-    } else {
-        res.json(
-            {
-                "existing": false
-            }
-        );
-    }
+    res.json(
+        result
+    );
 }
