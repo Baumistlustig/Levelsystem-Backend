@@ -2,12 +2,10 @@ import express from 'express';
 import helmet from 'helmet';
 
 // ----------- Modules ----------- //
-import { getUser } from "./modules/user.js";
+import { getUser } from "./modules/routes/user.js";
 import { pageNotFound } from "./modules/error/pagenotfound.js";
-import { register } from "./modules/register.js";
-import { login } from "./modules/login.js";
-import { leaderboard } from "./modules/leaderboard.js";
-import { messageCreate } from "./modules/messages.js";
+import { leaderboard } from "./modules/routes/leaderboard.js";
+import { messageCreate } from "./modules/routes/messages.js";
 import { MongoClient } from "mongodb";
 
 
@@ -38,16 +36,10 @@ app.all('/', (req, res) =>{
 app.get('/api/leaderboard', leaderboard);
 
 // User-Page
-app.get('/api/user/:userName', getUser);
+app.get('/api/user', getUser);
 
 
 // ----------- POST ----------- //
-
-// Login
-app.post('/api/login', login);
-
-// Register
-app.post('/api/register', register);
 
 // Messages
 app.post('/api/message', messageCreate);

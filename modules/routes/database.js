@@ -1,11 +1,10 @@
-import { client } from "../server.js";
+import { client } from "../../server.js";
 
 export async function dataBase(method, filter, amplifier, target_collection) {
 
     const dbName = 'levelsystem';
 
     await client.connect();
-    console.log('Connected successfully to MongoDB server\n');
 
     const db = client.db(dbName);
     const collection = db.collection(target_collection);
@@ -40,9 +39,7 @@ export async function dataBase(method, filter, amplifier, target_collection) {
 export async function fetchUserExperience(user) {
     let response = await dataBase('find', { name: user }, '', 'users');
 
-    console.log(response);
-
-    if (response[0]) {
+    if (response[0] !== undefined) {
 
         const keys = Object.keys(response[0]);
         const values = keys.map(function (key) {
@@ -56,10 +53,10 @@ export async function fetchUserExperience(user) {
         await dataBase(
             'insert',
             '',
-            {
+            [{
                 name: `${user}`,
                 experience: 1,
-            },
+            }],
             'users'
         )
     }
