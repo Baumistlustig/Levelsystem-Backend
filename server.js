@@ -2,8 +2,6 @@ import express from 'express';
 import helmet from 'helmet';
 
 // ----------- Modules ----------- //
-import { dataBase } from "./modules/database.js";
-
 import { getUser } from "./modules/user.js";
 import { pageNotFound } from "./modules/error/pagenotfound.js";
 import { register } from "./modules/register.js";
@@ -19,9 +17,6 @@ export const port = 8090;
 
 const db_url = 'mongodb://localhost:27017/';
 export const client = new MongoClient(db_url);
-
-
-// ----------- Database ----------- //
 
 
 // ----------- Middleware ----------- //

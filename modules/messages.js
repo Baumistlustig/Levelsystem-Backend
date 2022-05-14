@@ -1,8 +1,9 @@
-export function messageCreate(req, res) {
-    let user = req.body["author"];
-    console.log(user)
+import { fetchUserExperience } from "./database.js";
 
-    //TODO: Send Request to database and ask if user exists
+export async function messageCreate(req, res) {
+    let user = req.body["author"].toLowerCase();
+
+    await fetchUserExperience(user);
 
 
     res.json(
