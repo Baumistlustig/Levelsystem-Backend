@@ -1,25 +1,22 @@
-import { fetchUserExperience } from "./database.js";
-import dotenv from "dotenv";
+import { fetchUserExperience } from "../utils/database.js";
+import { accessToken } from "../utils/token.js";
 
 export async function messageCreate(req, res) {
 
-    dotenv.config({path: 'modules/utils/.env'})
+    let username = req.body["author"].toLowerCase();
+    let user_id = req.body['author_id'];
 
-    if (req.body["token"] !== process.env.TOKEN) {
-        res.json(
-            {
-                'success': false,
-                'error': 'Wrong token'
-            }
-        )
+     if (accessToken(req.body['token'])) {
+         res.json(
+             {
+                 'success': false,
+                 'error': 'Wrong token'
+             }
+         )
+         return;
+     }
 
-        return;
-    }
-
-    let user = req.body["author"].toLowerCase();
-
-    await fetchUserExperience(user);
-
+    await fetchUserExperience(username, user_id);
 
     res.json(
         {

@@ -1,19 +1,39 @@
-import { dataBase } from "./database.js";
+import { dataBase } from "../utils/database.js";
 
 export async function getUser(req, res) {
-    let user = req.body["author"].toLowerCase();
 
-    console.log(`User request by ${req.ip} to ${user}\n`)
+    let username = req.body['author'];
+    let user_id = req.body['author_id'];
 
-    let result = await dataBase('find', {name: `${user}`}, '', 'users');
 
-    if (result === []) {
+    console.log(`User request by ${req.ip} to ${username}\n`)
+
+    let result = await dataBase (
+        'find',
+        { id: '634856429538508801'},
+        '',
+        'users'
+    );
+
+    if (result[0] === undefined) {
+
+        console.log('debug')
+
         result = await dataBase(
             'insert',
             '',
             {
-                name: `${user}`,
-                experience: 0
+                experience: 1,
+                linkedUsers: {
+                    discord: {
+                        id: `${user_id}`,
+                        name: `${username}`
+                    },
+                    minecraft: {
+                        id: ``,
+                        name: ``
+                    }
+                }
             },
             'users'
         )

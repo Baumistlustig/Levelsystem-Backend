@@ -7,6 +7,7 @@ import { pageNotFound } from "./modules/error/pagenotfound.js";
 import { leaderboard } from "./modules/routes/leaderboard.js";
 import { messageCreate } from "./modules/routes/messages.js";
 import { MongoClient } from "mongodb";
+import { linkUser } from "./modules/routes/link.js";
 
 
 // ----------- Const ----------- //
@@ -43,6 +44,10 @@ app.get('/api/user', getUser);
 
 // Messages
 app.post('/api/message', messageCreate);
+
+// Link
+app.post('/api/link', linkUser);
+
 
 // ----------- ERROR ----------- //
 

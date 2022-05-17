@@ -17,7 +17,7 @@ export async function dataBase(method, filter, amplifier, target_collection) {
             break;
 
         case 'insert':
-            result = await collection.insertMany(amplifier);
+            result = await collection.insertOne(amplifier);
             break;
 
         case 'delete':
@@ -36,8 +36,13 @@ export async function dataBase(method, filter, amplifier, target_collection) {
     return result;
 }
 
-export async function fetchUserExperience(user) {
-    let response = await dataBase('find', { name: user }, '', 'users');
+export async function fetchUserExperience(username, user_id) {
+    let response = await dataBase(
+        'find',
+        { id: '634856429538508801'},
+        '',
+        'users'
+    );
 
     if (response[0] !== undefined) {
 
@@ -48,15 +53,30 @@ export async function fetchUserExperience(user) {
 
         let experience = (values[2]) += 1;
 
-        await dataBase('update', { name: user }, { $set: { experience: experience } } , 'users');
+        await dataBase(
+            'update',
+            { id: '634856429538508801'},
+            { $set: { experience: experience } },
+            'users'
+        );
     } else {
         await dataBase(
             'insert',
             '',
-            [{
-                name: `${user}`,
+            {
+                id: `${user_id}`,
                 experience: 1,
-            }],
+                linkedUsers: {
+                    discord: {
+                        id: `${user_id}`,
+                        name: `${username}`
+                    },
+                    minecraft: {
+                        id: ``,
+                        name: ``
+                    }
+                }
+            },
             'users'
         )
     }
