@@ -5,7 +5,6 @@
   "description": "## Backend System for my cross platform levelsystem",
   "main": "index.js",
   "scripts": {
-    "test": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],

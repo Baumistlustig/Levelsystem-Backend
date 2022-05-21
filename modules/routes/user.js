@@ -6,11 +6,11 @@ export async function getUser(req, res) {
     let user_id = req.body['author_id'];
 
 
-    console.log(`User request by ${req.ip} to ${username}\n`)
+    console.log(`User request by ${req.ip} to ${user_id}\n`)
 
     let result = await dataBase (
         'find',
-        { id: '634856429538508801'},
+        { id: `${user_id}`},
         '',
         'users'
     );
@@ -45,6 +45,7 @@ export async function getUser(req, res) {
     });
 
     res.json(
-        values[2]
+        result
+        //values[2]
     );
 }

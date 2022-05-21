@@ -14,9 +14,6 @@ import { linkUser } from "./modules/routes/link.js";
 export const app = express();
 export const port = 8090;
 
-const db_url = 'mongodb://localhost:27017/';
-export const client = new MongoClient(db_url);
-
 
 // ----------- Middleware ----------- //
 app.use(helmet());
@@ -33,11 +30,11 @@ app.all('/', (req, res) =>{
 
 // ----------- GET ----------- //
 
-// Leaderboard
-app.get('/api/leaderboard', leaderboard);
-
 // User-Page
 app.get('/api/user', getUser);
+
+// Leaderboard
+app.get('/api/leaderboard', leaderboard);
 
 
 // ----------- POST ----------- //

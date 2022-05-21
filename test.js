@@ -1,15 +1,8 @@
-import request from 'request'
+import { dataBase } from "./modules/utils/database.js";
 
-const options = {
-    url: 'http://localhost:8090/api/message',
-    form: {
-        author: 'test'
-    }
-};
-
-request.post(options, (err, res, body) => {
-    if (err) {
-        return console.log(err);
-    }
-    console.log(JSON.parse(body));
-});
+console.log(await dataBase(
+    'find',
+    '',
+    '',
+    'users'
+));
