@@ -2,41 +2,54 @@ import { dataBase } from "../utils/database.js";
 
 export async function getUser(req, res) {
 
-    let username = req.body['author'];
-    let user_id = req.body['author_id'];
+    let author_name = req.body['author_username'];
+    let author_id = req.body['author_id'];
+    let target_id = req.body['target_id'];
+    let target_name = req.body['target_name'];
 
+    if (target_id) {
+        author_id = target_id;
+        author_name = target_name;
+    }
 
-    console.log(`User request by ${req.ip} to ${user_id}\n`)
+    console.log(target_id)
+
+    console.log(`User request by ${req.ip} to ${author_id}\n`)
 
     let result = await dataBase (
         'find',
-        { id: `${user_id}`},
+        { id: `${author_id}` },
         '',
         'users'
     );
 
     if (result[0] === undefined) {
 
-        console.log('debug')
-
         result = await dataBase(
             'insert',
             '',
             {
+                id: author_id,
                 experience: 1,
                 linkedUsers: {
                     discord: {
-                        id: `${user_id}`,
-                        name: `${username}`
+                        id: `${author_id}`,
+                        name: `${author_name}`
                     },
                     minecraft: {
                         id: ``,
                         name: ``
                     }
-                }
+                },
             },
             'users'
         )
+
+        res.json(
+            'existing false'
+        )
+
+        return;
     }
 
     const keys = Object.keys(result[0]);
@@ -44,8 +57,7 @@ export async function getUser(req, res) {
         return result[0][key];
     });
 
-    res.json(
-        result
-        //values[2]
-    );
+    res.json({
+        "experience": values[2],
+    });
 }

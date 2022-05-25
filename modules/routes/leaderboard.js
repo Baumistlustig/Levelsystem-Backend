@@ -23,15 +23,13 @@ export async function leaderboard(req, res) {
         experiences[values[1]] = (values[2]);
     }
 
-    console.log(experiences)
+    console.log(experiences);
 
     function getKeysWithHighestValue(o, n){
         const keys = Object.keys(o);
         keys.sort(function(a,b){
             return o[b] - o[a];
         });
-
-        console.log(response[0].linkedUsers.discord.name);
 
         res.json(
             {
