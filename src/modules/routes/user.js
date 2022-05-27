@@ -12,8 +12,6 @@ export async function getUser(req, res) {
         author_name = target_name;
     }
 
-    console.log(target_id)
-
     console.log(`User request by ${req.ip} to ${author_id}\n`)
 
     let result = await dataBase (
@@ -25,28 +23,10 @@ export async function getUser(req, res) {
 
     if (result[0] === undefined) {
 
-        result = await dataBase(
-            'insert',
-            '',
-            {
-                id: author_id,
-                experience: 1,
-                linkedUsers: {
-                    discord: {
-                        id: `${author_id}`,
-                        name: `${author_name}`
-                    },
-                    minecraft: {
-                        id: ``,
-                        name: ``
-                    }
-                },
-            },
-            'users'
-        )
-
         res.json(
-            'existing false'
+            {
+                "experience": false,
+            }
         )
 
         return;
@@ -57,7 +37,9 @@ export async function getUser(req, res) {
         return result[0][key];
     });
 
-    res.json({
-        "experience": values[2],
-    });
+    res.json(
+        {
+            "experience": values[2],
+        }
+    );
 }

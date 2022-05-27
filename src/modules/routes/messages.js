@@ -1,45 +1,21 @@
-import { MongoClient } from "mongodb";
+import { dataBase } from "../utils/database.js";
+import { accessToken } from "../utils/token.js";
 
-const db_url = 'mongodb://localhost:27017/';
-const client = new MongoClient(db_url);
+export async function messageCreate(req, res) {
 
-export async function dataBase(method, filter, amplifier, target_collection) {
+    let username = req.body["author"].toLowerCase();
+    let user_id = req.body['author_id'];
 
-    const dbName = 'levelsystem';
+     if (accessToken(req.body['token'])) {
+         res.json(
+             {
+                 'success': false,
+                 'error': 'Wrong token'
+             }
+         )
+         return;
+     }
 
-    await client.connect();
-
-    const db = client.db(dbName);
-    const collection = db.collection(target_collection);
-
-    let result;
-
-    switch (method) {
-        case 'find':
-            result = await collection.find(filter).toArray();
-            break;
-
-        case 'insert':
-            result = await collection.insertOne(amplifier);
-            break;
-
-        case 'delete':
-            result = await collection.deleteMany(filter);
-            break;
-
-        case 'update':
-            result = await collection.updateOne(filter, amplifier);
-            break;
-
-        default:
-            result = 'Error!';
-            break;
-    }
-
-    return result;
-}
-
-export async function fetchUserExperience(username, user_id) {
     let response = await dataBase(
         'find',
         { id: `${user_id}`},
@@ -83,4 +59,10 @@ export async function fetchUserExperience(username, user_id) {
             'users'
         )
     }
+
+    res.json(
+        {
+            'success': true,
+        }
+    );
 }

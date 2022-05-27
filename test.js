@@ -1,4 +1,4 @@
-import { dataBase } from "./modules/utils/database.js";
+import { dataBase } from "./src/modules/utils/database.js";
 
 console.log(await dataBase(
     'find',
