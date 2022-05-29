@@ -3,38 +3,33 @@ import { MongoClient } from "mongodb";
 const db_url = 'mongodb://localhost:27017/';
 const client = new MongoClient(db_url);
 
-export async function dataBase(method, filter, amplifier, target_collection) {
+const dbName = 'levelsystem';
 
-    const dbName = 'levelsystem';
+await client.connect();
 
-    await client.connect();
+const db = client.db(dbName);
 
-    const db = client.db(dbName);
-    const collection = db.collection(target_collection);
+// ----------- DATABASE METHODS ----------- //
 
-    let result;
+// Find
+export async function find(filter, target_collection) {
+    return await db.collection(target_collection).find(filter).toArray();
+}
 
-    switch (method) {
-        case 'find':
-            result = await collection.find(filter).toArray();
-            break;
+// Insert
 
-        case 'insert':
-            result = await collection.insertOne(amplifier);
-            break;
+export async function insert(amplifier, target_collection) {
+    return await db.collection(target_collection).insertOne(amplifier);
+}
 
-        case 'delete':
-            result = await collection.deleteMany(filter);
-            break;
+// Delete
 
-        case 'update':
-            result = await collection.updateOne(filter, amplifier);
-            break;
+export async function del(filter, target_collection) {
+    return await db.collection(target_collection).deleteMany(filter);
+}
 
-        default:
-            result = 'Error!';
-            break;
-    }
+//Update
 
-    return result;
+export async function update(filter, amplifier, target_collection) {
+    return await db.collection(target_collection).updateOne(filter, amplifier);
 }

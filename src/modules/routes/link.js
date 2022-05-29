@@ -1,7 +1,7 @@
 import request from "request";
 
 import { accessToken } from "../utils/token.js";
-import { dataBase } from "../utils/database.js";
+import { find, update } from "../utils/database.js";
 
 export async function linkUser(req, res) {
 
@@ -24,8 +24,8 @@ export async function linkUser(req, res) {
     if (accessToken(token)) {
         res.json(
             {
-                'success': false,
-                'error': 'Wrong token'
+                "success": false,
+                "error": "Wrong token"
             }
         )
         return;
@@ -38,17 +38,14 @@ export async function linkUser(req, res) {
 
             minecraft_id = minecraft_id[Object.keys(minecraft_id)[0]];
 
-            let resolution = await dataBase(
-                'find',
+            let result = await find(
                 { id: `${user_id}` },
-                '',
                 'users'
             );
 
-            if (resolution[0] !== undefined) {
+            if (result[0] !== undefined) {
 
-                await dataBase(
-                    'update',
+                await update(
                     { id: `${user_id}` },
                     { $set: { linkedUsers: { minecraft: { id: minecraft_id }, discord: { id: `${user_id}`, name: `${username}` } }, } },
                     'users'

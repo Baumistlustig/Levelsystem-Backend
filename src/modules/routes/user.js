@@ -1,4 +1,4 @@
-import { dataBase } from "../utils/database.js";
+import { find} from "../utils/database.js";
 
 export async function getUser(req, res) {
 
@@ -14,10 +14,8 @@ export async function getUser(req, res) {
 
     console.log(`User request by ${req.ip} to ${author_id}\n`)
 
-    let result = await dataBase (
-        'find',
+    let result = await find (
         { id: `${author_id}` },
-        '',
         'users'
     );
 
