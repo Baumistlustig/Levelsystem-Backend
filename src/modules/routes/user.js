@@ -1,18 +1,18 @@
 import { find} from "../utils/database.js";
 
 export async function getUser(req, res) {
+    console.log(`User request by ${req.ip} to ${author_id}\n`);
 
     let author_name = req.body['author_username'];
     let author_id = req.body['author_id'];
     let target_id = req.body['target_id'];
-    let target_name = req.body['target_name'];
 
+    let target_name = req.body['target_name'];
     if (target_id) {
         author_id = target_id;
         author_name = target_name;
-    }
 
-    console.log(`User request by ${req.ip} to ${author_id}\n`)
+    }
 
     let result = await find (
         { id: `${author_id}` },

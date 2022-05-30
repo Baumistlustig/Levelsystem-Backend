@@ -4,7 +4,6 @@ import { accessToken } from "../utils/token.js";
 import { find, update } from "../utils/database.js";
 
 export async function linkUser(req, res) {
-
     console.log(`Link request by ${req.ip}`);
 
     let user_id = req.body['author_id'];
@@ -35,8 +34,7 @@ export async function linkUser(req, res) {
         { url: `https://api.minecraftservices.com/minecraft/profile/lookup/name/${minecraft_user} `},
         async (err, response) => {
             minecraft_id = JSON.parse(response.body);
-
-            minecraft_id = minecraft_id[Object.keys(minecraft_id)[0]];
+            minecraft_id = JSON.parse(response.body)[Object.keys(minecraft_id)[0]];
 
             let result = await find(
                 { id: `${user_id}` },

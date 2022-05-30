@@ -1,7 +1,5 @@
 import express from 'express';
 import helmet from 'helmet';
-import path from "node:path";
-import fs from "node:fs";
 
 // ----------- Modules ----------- //
 import { getUser } from "./modules/routes/user.js";
@@ -32,9 +30,6 @@ app.all('/', (req, res) =>{
 
 // ----------- GET ----------- //
 
-// getDiscord
-app.get('/api/getDiscord', getDiscord);
-
 // User-Page
 app.get('/api/user', getUser);
 
@@ -50,6 +45,8 @@ app.post('/api/message', messageCreate);
 // Link
 app.post('/api/link', linkUser);
 
+// getDiscord
+app.post('/api/getDiscord', getDiscord);
 
 // ----------- ERROR ----------- //
 

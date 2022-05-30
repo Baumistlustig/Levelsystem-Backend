@@ -2,6 +2,8 @@ import { find } from "../utils/database.js";
 
 export async function getDiscord(req, res) {
 
+    console.log(`getDiscord request by ${req.ip}\n`);
+
     let target = req.body['minecraft_id'];
 
     let result = await find(
@@ -9,14 +11,14 @@ export async function getDiscord(req, res) {
         'users'
     );
 
-    console.log(result);
-
     let user;
 
     for (let i = 0; i < result.length; i++) {
         let minecraft_id = result[i].linkedUsers.minecraft.id;
 
-        if (minecraft_id === target) {
+        target = target.replace(/-/g, "");
+
+        if (minecraft_id === target.toString()) {
             user = i;
             break;
         }
@@ -34,9 +36,5 @@ export async function getDiscord(req, res) {
 
     let discord_id = result[user].id;
 
-    res.json(
-        {
-            "discord_id": discord_id,
-        }
-    );
+    res.send(discord_id);
 }
