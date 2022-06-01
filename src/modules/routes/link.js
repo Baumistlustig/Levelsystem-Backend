@@ -30,6 +30,8 @@ export async function linkUser(req, res) {
         return;
     }
 
+    // Get ID from Minecraft API
+
     await request.get(
         { url: `https://api.minecraftservices.com/minecraft/profile/lookup/name/${minecraft_user} `},
         async (err, response) => {

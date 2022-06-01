@@ -8,6 +8,14 @@ export async function leaderboard(req, res) {
         'users'
     );
 
+    if (response[4] === undefined) {
+        res.json(
+            {
+                "error": "Not enough users in database!",
+            }
+        );
+        return false;
+    }
 
     let experiences = {};
 

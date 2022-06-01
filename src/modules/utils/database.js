@@ -17,19 +17,16 @@ export async function find(filter, target_collection) {
 }
 
 // Insert
-
 export async function insert(amplifier, target_collection) {
     return await db.collection(target_collection).insertOne(amplifier);
 }
 
 // Delete
-
 export async function del(filter, target_collection) {
     return await db.collection(target_collection).deleteMany(filter);
 }
 
 //Update
-
 export async function update(filter, amplifier, target_collection) {
     return await db.collection(target_collection).updateOne(filter, amplifier);
 }

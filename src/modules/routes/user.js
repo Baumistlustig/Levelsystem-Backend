@@ -5,6 +5,15 @@ export async function getUser(req, res) {
     let author_id = req.body['author_id'];
     let target_id = req.body['target_id'];
 
+    if (!author_id) {
+        res.json(
+            {
+                "error": "No author_id provided!",
+            }
+        );
+        return false;
+    }
+
     console.log(`User request by ${req.ip} to ${author_id}\n`);
 
     let target_name = req.body['target_name'];

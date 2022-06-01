@@ -8,6 +8,7 @@ import { leaderboard } from "./modules/routes/leaderboard.js";
 import { messageCreate } from "./modules/routes/messages.js";
 import { linkUser } from "./modules/routes/link.js";
 import { getDiscord } from "./modules/routes/getDiscord.js";
+import { root } from "./modules/routes/root.js";
 
 
 // ----------- Const ----------- //
@@ -21,14 +22,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
-// Root-Page
-app.all('/', (req, res) =>{
-    res.send('<p>Root Page</p>');
-    console.log(` Root request by ${req.ip}\n`);
-});
+// ----------- ROUTES ----------- //
+
+// ----- ROOT-PAGE ----- //
+app.all('/', root);
 
 
-// ----------- GET ----------- //
+// ----- GET ----- //
 
 // User-Page
 app.get('/api/user', getUser);
@@ -39,7 +39,7 @@ app.get('/api/leaderboard', leaderboard);
 // getDiscord
 app.get('/api/getDiscord/:author_id', getDiscord);
 
-// ----------- POST ----------- //
+// ----- POST ----- //
 
 // Messages
 app.post('/api/message', messageCreate);
@@ -47,7 +47,7 @@ app.post('/api/message', messageCreate);
 // Link
 app.post('/api/link', linkUser);
 
-// ----------- ERROR ----------- //
+// ----- ERROR ----- //
 
 // PageNotFound
 app.use(pageNotFound);

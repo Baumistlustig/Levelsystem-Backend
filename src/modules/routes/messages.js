@@ -6,6 +6,8 @@ export async function messageCreate(req, res) {
     let username = req.body["author"].toLowerCase();
     let user_id = req.body['author_id'];
 
+    // AccessToken
+
      if (accessToken(req.body['token'])) {
          res.json(
              {
@@ -14,6 +16,15 @@ export async function messageCreate(req, res) {
              }
          )
          return;
+     }
+
+     if (!user_id) {
+         res.json(
+             {
+                 "error": "No author_id provided!",
+             }
+         );
+         return false;
      }
 
     let response = await find(

@@ -6,6 +6,14 @@ export async function getDiscord(req, res) {
 
     let target = req.body['minecraft_id'];
 
+    if (!target) {
+        res.json(
+            {
+                "error": "No target minecraft id provided!"
+            }
+        )
+    }
+
     let result = await find(
         '',
         'users'
