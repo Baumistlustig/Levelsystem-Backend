@@ -1,10 +1,5 @@
-import dotenv from "dotenv";
+import * as data from './config/data.json' assert {type: "json"};
 
 export function accessToken(token) {
-
-    dotenv.config({ path: 'modules/utils/config/.env' });
-
-    if (token !== process.env.TOKEN) {
-        return false;
-    }
+    return token === data.access_token;
 }

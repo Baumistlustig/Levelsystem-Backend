@@ -36,6 +36,8 @@ app.get('/api/user', getUser);
 // Leaderboard
 app.get('/api/leaderboard', leaderboard);
 
+// getDiscord
+app.get('/api/getDiscord/:author_id', getDiscord);
 
 // ----------- POST ----------- //
 
@@ -44,9 +46,6 @@ app.post('/api/message', messageCreate);
 
 // Link
 app.post('/api/link', linkUser);
-
-// getDiscord
-app.post('/api/getDiscord', getDiscord);
 
 // ----------- ERROR ----------- //
 
