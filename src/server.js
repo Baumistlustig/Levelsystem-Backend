@@ -28,7 +28,7 @@ app.use(function (
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
     next();
 }); // Allow-Access-Control
@@ -67,7 +67,7 @@ app.use(pageNotFound);
 
 // ----------- INIT ----------- //
 app.listen(
-    port, '0.0.0.0', '',
+    port, '0.0.0.0', 0,
     function () {
         console.log(`Server listening on port ${port}\n`);
     }
