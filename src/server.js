@@ -20,14 +20,18 @@ export const port = 8090;
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(function (req, res, next) {
+app.use(function (
+    req,
+    res,
+    next,
+) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     next();
-});
+}); // Allow-Access-Control
 
 
 // ----------- ROUTES ----------- //
@@ -37,9 +41,6 @@ app.all('/', root);
 
 
 // ----- GET ----- //
-
-// User-Page
-app.get('/api/user', getUser);
 
 // Leaderboard
 app.get('/api/leaderboard', leaderboard);
@@ -54,6 +55,9 @@ app.post('/api/message', messageCreate);
 
 // Link
 app.post('/api/link', linkUser);
+
+// User
+app.get('/api/user', getUser);
 
 // ----- ERROR ----- //
 
