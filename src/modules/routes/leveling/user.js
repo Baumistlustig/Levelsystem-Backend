@@ -1,4 +1,4 @@
-import { find } from "../utils/database.js";
+import { find } from "../../utils/database.js";
 
 export async function getUser(req, res) {
     let author_id = req.body['author_id'];

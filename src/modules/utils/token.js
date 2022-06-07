@@ -1,5 +1,5 @@
-import * as data from './config/data.json' assert { type: "json" };
+//import * as data from './config/data.json';
 
 export function accessToken(token) {
-    return token === data.access_token;
+    return false;//token === data.access_token;
 }

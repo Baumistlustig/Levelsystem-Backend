@@ -1,4 +1,4 @@
-import { find } from "../utils/database.js";
+import { find } from "../../utils/database.js";
 
 export async function getDiscord(req, res) {
 

@@ -1,4 +1,4 @@
-import { find} from "../utils/database.js";
+import { find} from "../../utils/database.js";
 
 export async function leaderboard(req, res) {
     console.log(`Leaderboard request by ${req.ip}\n`);
