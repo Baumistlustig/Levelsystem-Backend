@@ -12,6 +12,7 @@ import { root } from "./modules/routes/leveling/root.js";
 import { headers } from "./modules/middleware/headers.js";
 import { requireType } from "./modules/middleware/type.js";
 import { signup } from "./modules/routes/login/signup.js";
+import {signIn} from "./modules/routes/login/signin.js";
 
 
 // ----------- Const ----------- //
@@ -44,6 +45,9 @@ app.get('/api/getDiscord/:author_id', getDiscord);
 
 // SignUp
 app.post('/api/auth/signup', await requireType(), signup);
+
+//SignIn
+app.post('/api/auth/signin', await requireType(), signIn);
 
 // Messages
 app.post('/api/message', await requireType(), messageCreate);
