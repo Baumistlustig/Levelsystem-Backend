@@ -15,7 +15,7 @@ export async function messageCreate(req, res) {
                  'error': 'Wrong token'
              }
          )
-         return;
+         return false;
      }
 
      if (!user_id) {
