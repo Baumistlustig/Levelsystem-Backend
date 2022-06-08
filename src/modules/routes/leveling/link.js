@@ -1,7 +1,7 @@
 import request from "request";
 
-import { accessToken } from "../utils/token.js";
-import { find, update } from "../utils/database.js";
+import { accessToken } from "../../utils/token.js";
+import { find, update } from "../../utils/database.js";
 
 export async function linkUser(req, res) {
     console.log(`Link request by ${req.ip}`);
@@ -35,7 +35,6 @@ export async function linkUser(req, res) {
     await request.get(
         { url: `https://api.minecraftservices.com/minecraft/profile/lookup/name/${minecraft_user} `},
         async (err, response) => {
-            minecraft_id = JSON.parse(response.body);
             minecraft_id = JSON.parse(response.body)[Object.keys(minecraft_id)[0]];
 
             let result = await find(

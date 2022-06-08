@@ -1,5 +1,5 @@
-import { find, insert, update } from "../utils/database.js";
-import { accessToken } from "../utils/token.js";
+import { find, insert, update } from "../../utils/database.js";
+import { accessToken } from "../../utils/token.js";
 
 export async function messageCreate(req, res) {
 
