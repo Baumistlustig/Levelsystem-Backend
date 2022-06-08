@@ -80,8 +80,8 @@ export async function signup(req, res) {
     );
 
     console.log(`SignUp request by ${req.ip}`,
-        `username: ${username}`,
-        `email: ${email}`,
-        `hashed_password: ${hashed_password}`,
+        `username: ${username}\n`,
+        `email: ${email}\n`,
+        `hashed_password: ${hashed_password}\n`,
     );
 }
