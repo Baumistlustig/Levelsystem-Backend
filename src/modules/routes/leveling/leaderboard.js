@@ -33,33 +33,44 @@ export async function leaderboard(req, res) {
         return experiences[b] - experiences[a];
     });
 
-    res.json(
+    let usernames = [];
+
+    for (let i = 0; i < keys.length; i++)  {
+        console.log(keys[i])
+        let resolution = await find(
+            { id: keys[i] },
+            'users'
+        );
+
+        usernames.push(resolution[0].linkedUsers.discord.name);
+    }
+
+    res.send([
         {
-            "first": {
-                "user_id": keys[0],
-                "username": response[0].linkedUsers.discord.name,
-                "experience": experiences[keys[0]],
-            },
-            "second": {
-                "user_id": keys[1],
-                "username": response[1].linkedUsers.discord.name,
-                "experience": experiences[keys[1]],
-            },
-            "third": {
-                "user_id": keys[2],
-                "username": response[2].linkedUsers.discord.name,
-                "experience": experiences[keys[2]],
-            },
-            "fourth": {
-                "user_id": keys[3],
-                "username": response[3].linkedUsers.discord.name,
-                "experience": experiences[keys[3]],
-            },
-            "fifth": {
-                "user_id": keys[4],
-                "username": response[4].linkedUsers.discord.name,
-                "experience": experiences[keys[4]],
-            }
+            "user_id": keys[0],
+            "username": usernames[0],
+            "experience": experiences[keys[0]],
+        },
+        {
+            "user_id": keys[1],
+            "username": usernames[1],
+            "experience": experiences[keys[1]],
+        },
+        {
+            "user_id": keys[2],
+            "username": usernames[2],
+            "experience": experiences[keys[2]],
+        },
+        {
+            "user_id": keys[3],
+            "username": usernames[3],
+            "experience": experiences[keys[3]],
+        },
+        {
+            "user_id": keys[4],
+            "username": usernames[4],
+            "experience": experiences[keys[4]],
         }
+        ]
     );
 }

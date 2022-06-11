@@ -12,7 +12,8 @@ import { root } from "./modules/routes/leveling/root.js";
 import { headers } from "./modules/middleware/headers.js";
 import { requireType } from "./modules/middleware/type.js";
 import { signup } from "./modules/routes/login/signup.js";
-import {signIn} from "./modules/routes/login/signin.js";
+import { signIn } from "./modules/routes/login/signin.js";
+import { checkAccess } from "./modules/middleware/checkAccess.js";
 
 
 // ----------- Const ----------- //
@@ -24,8 +25,8 @@ export const port = 8090;
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded( { extended: false }));
-app.use(headers) // Headers
-
+app.use(headers); // Headers
+app.use(checkAccess); // CheckAccessPerms
 
 // ----------- ROUTES ----------- //
 
@@ -41,22 +42,24 @@ app.get('/api/leaderboard', leaderboard);
 // getDiscord
 app.get('/api/getDiscord/:author_id', getDiscord);
 
+// User
+app.get('/api/user', getUser);
+
 // ----- POST ----- //
 
 // SignUp
 app.post('/api/auth/signup', await requireType(), signup);
 
-//SignIn
+// SignIn
 app.post('/api/auth/signin', await requireType(), signIn);
 
+// SignOut
+app.post('/api/auth/signout')
 // Messages
 app.post('/api/message', await requireType(), messageCreate);
 
 // Link
 app.post('/api/link', await requireType(), linkUser);
-
-// User
-app.get('/api/user', getUser);
 
 // ----- ERROR ----- //
 
