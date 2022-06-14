@@ -11,31 +11,40 @@ export async function signup(req, res) {
         res.json(
             {
                 "success": false,
-                "error": "no_username_provided",
+                "error": "arguments_not_fullfilled",
             }
         )
         return false;
     }
 
-    let result = await find({ user: `${username}` }, 'web_users');
+    let response;
+    if (email !== undefined) {
+        response = await find(
+            { email: `${email}` },
+            'web_users'
+        );
+    } else if (username !== undefined) {
+        response = await find(
+            { username: `${username}` },
+            'web_users'
+        );
+    }
 
-    if (result[0] !== undefined) {
+    if (response[0] !== undefined) {
         res.json(
             {
                 "success": false,
-                "error": "user_already_exists"
+                "error": "email_already_exists"
             }
         );
         return false;
     }
 
-    result = await find({ email: `${email}` }, 'web_users');
-
-    if (result[0] !== undefined) {
+    if (response[0] !== undefined) {
         res.json(
             {
                 "success": false,
-                "error": "email_already_exists"
+                "error": "user_already_exists"
             }
         );
         return false;
@@ -68,7 +77,8 @@ export async function signup(req, res) {
         {
             username: `${username}`,
             password: `${hashed_password}`,
-            email: `${email}`
+            email: `${email}`,
+            verified: false,
         },
         'web_users',
     );

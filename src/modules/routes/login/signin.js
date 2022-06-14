@@ -2,19 +2,8 @@ import { stringToHash } from "../../utils/hash.js";
 import { find } from "../../utils/database.js";
 
 export async function signIn(req, res) {
-    let username = req.body['username'];
     let password = req.body['password'];
     let email = req.body['email'];
-
-    if (username === undefined && email === undefined) {
-        res.json(
-            {
-                "success": false,
-                "error": "no_email/password_provided"
-            }
-        );
-        return false;
-    }
 
     if (password === undefined) {
         res.json(
@@ -30,18 +19,10 @@ export async function signIn(req, res) {
     const hashed_password = stringToHash(password);
 
     // Response from Database
-    let response;
-    if (email !== undefined) {
-        response = await find(
-            { email: `${email}` },
-            'web_users'
-        );
-    } else if (username !== undefined) {
-        response = await find(
-            { username: `${username}` },
-            'web_users'
-        );
-    }
+    let response = await find(
+        { email: `${email}` },
+        'web_users'
+    );
 
     //UserNotFound
     if (response[0] === undefined) {
@@ -65,6 +46,17 @@ export async function signIn(req, res) {
         return false;
     }
 
+    // Not Verified
+    if (!response[0].verified) {
+        res.json(
+            {
+                "success": false,
+                "error": "user_not_verified"
+            }
+        );
+        return false;
+    }
+
     // Success
     res.json(
         {
@@ -72,8 +64,8 @@ export async function signIn(req, res) {
         }
     );
 
-    console.log(`SignIn request by ${req.ip}`,
-        `username: ${username}\n`,
+    console.log(`SignIn request by ${req.ip}\n`,
+        `username: ${response[0].username}\n`,
         `email: ${email}\n`,
         `hashed_password: ${hashed_password}\n`,
     );
