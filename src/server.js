@@ -14,6 +14,7 @@ import { requireType } from "./modules/middleware/type.js";
 import { signup } from "./modules/routes/login/signup.js";
 import { signIn } from "./modules/routes/login/signin.js";
 import { checkAccess } from "./modules/middleware/checkAccess.js";
+import { search } from "./modules/routes/leveling/search.js";
 
 
 // ----------- Const ----------- //
@@ -35,6 +36,9 @@ app.all('/', root);
 
 
 // ----- GET ----- //
+
+// Search
+app.get('/api/search/:user', search);
 
 // Leaderboard
 app.get('/api/leaderboard', leaderboard);
