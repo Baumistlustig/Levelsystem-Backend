@@ -11,7 +11,7 @@ export async function signup(req, res) {
         res.json(
             {
                 "success": false,
-                "error": "arguments_not_fullfilled",
+                "error": "arguments_not_fulfilled",
             }
         )
         return false;
