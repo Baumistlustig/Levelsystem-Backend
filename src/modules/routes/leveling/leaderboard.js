@@ -36,13 +36,12 @@ export async function leaderboard(req, res) {
     let usernames = [];
 
     for (let i = 0; i < keys.length; i++)  {
-        console.log(keys[i])
         let resolution = await find(
             { id: keys[i] },
             'users'
         );
 
-        usernames.push(resolution[0].linkedUsers.discord.name);
+        usernames.push(resolution[0].discord_name);
     }
 
     res.send([

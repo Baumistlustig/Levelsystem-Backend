@@ -51,16 +51,10 @@ export async function messageCreate(req, res) {
             {
                 id: `${ user_id }`,
                 experience: 1,
-                linkedUsers: {
-                    discord: {
-                        id: `${ user_id }`,
-                        name: `${ username }`,
-                    },
-                    minecraft: {
-                        id: ``,
-                        name: ``,
-                    }
-                }
+                discord_name: `${username}`,
+                discord_id: `${user_id}`,
+                minecraft_name: ``,
+                minecraft_id: ``,
             },
             'users'
         )
