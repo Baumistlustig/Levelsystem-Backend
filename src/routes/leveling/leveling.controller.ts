@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import { LeaderboardLevelingService } from "./services/leaderboard.leveling.service";
 import { GetUserLevelingService } from "./services/getUser.leveling.service";
 import { MessageLevelingService } from "./services/message.leveling.service";
+import { LinkLevelingService } from "./services/link.leveling.service";
 
 @Controller('api/leveling')
 export class LevelingController {
@@ -9,7 +10,8 @@ export class LevelingController {
     private readonly leaderboardService: LeaderboardLevelingService,
     private readonly getUserService: GetUserLevelingService,
     private readonly messageLevelingService: MessageLevelingService,
-  ) {   }
+    private readonly linkLevelingService: LinkLevelingService,
+  ) {  }
 
   @Get('user/:target_id')
   getUser( @Param('target_id') target_id: string, ): any {
@@ -28,5 +30,14 @@ export class LevelingController {
     @Body('token') token: string,
   ): any {
     return this.messageLevelingService.postMessage(author_id, author_name, token);
+  }
+
+  @Patch('link')
+  link(
+    @Body('author_id') author_id: string,
+    @Body('token') token: string,
+    @Body('minecraft_username') minecraft_username:string
+  ): any {
+    return this.linkLevelingService.linkUser(author_id, token, minecraft_username) ;
   }
 }

@@ -7,7 +7,7 @@ const client = new MongoClient(db_url);
 client.connect().then(
   r =>
     console.log(
-      `Connected to ${databaseConfig.HOST}:${databaseConfig.PORT} to database ${databaseConfig.DB}`
+      `Connected to ${databaseConfig.HOST}:${databaseConfig.PORT} on database ${databaseConfig.DB}`
     )
 );
 
