@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from "@nestjs/common";
+import { Body, Controller, Get, Param } from "@nestjs/common";
 import { LeaderboardLevelingService } from "./services/leaderboard.leveling.service";
 import { GetUserLevelingService } from "./services/getUser.leveling.service";
 
@@ -14,11 +14,8 @@ export class LevelingController {
     return this.leaderboardService.getLeaderBoard();
   }
 
-  @Get('user')
-  user(
-    @Body('author_id') author_id: string,
-    @Body('target_id') target_id:string,
-  ): any {
-    return this.getUserService.getUser(author_id, target_id);
+  @Get('user/:target_id')
+  getUser( @Param('target_id') target_id: string, ): any {
+    return this.getUserService.getUser(target_id);
   }
 }

@@ -3,29 +3,22 @@ import { find } from "../../../utils/database/database";
 
 @Injectable()
 export class GetUserLevelingService {
-  getUser(author_id, target_id): object {
-    if (!author_id) {
-      return { error: "No author_id provided!",};
+  async getUser(target_id) {
+    if (!target_id) {
+      return { error: "no_target_id_provided", };
     }
 
-    if (target_id) {
-      author_id = target_id;
-    }
-
-    let result = find (
-      { id: `${author_id}` },
+    let dbResponse = await find(
+      { id: `${target_id}` },
       'users'
     );
 
-    if (result[0] === undefined) {
+    console.log(dbResponse)
+
+    if (dbResponse[0] === undefined) {
       return { experience: false };
     }
 
-    const keys = Object.keys(result[0]);
-    const values = keys.map(function (key) {
-      return result[0][key];
-    });
-
-    return { experience: values[2] };
+    return dbResponse[0];
   }
 }
