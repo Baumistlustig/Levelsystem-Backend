@@ -9,9 +9,9 @@ export class LevelingController {
     private readonly getUserService: GetUserLevelingService,
   ) {   }
 
-  @Get('leaderboard')
-  leaderboard(): any {
-    return this.leaderboardService.getLeaderBoard();
+  @Get('leaderboard/:count')
+  leaderboard( @Param('count') count: number, ): any {
+    return this.leaderboardService.getLeaderBoard(count);
   }
 
   @Get('user/:target_id')
