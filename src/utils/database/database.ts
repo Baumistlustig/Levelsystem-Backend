@@ -4,7 +4,12 @@ import { databaseConfig } from "./database.config";
 const db_url = `mongodb://${databaseConfig.HOST}:${databaseConfig.PORT}/`;
 const client = new MongoClient(db_url);
 
-client.connect();
+client.connect().then(
+  r =>
+    console.log(
+      `Connected to ${databaseConfig.HOST}:${databaseConfig.PORT} to database ${databaseConfig.DB}`
+    )
+);
 
 const db = client.db(databaseConfig.DB);
 
