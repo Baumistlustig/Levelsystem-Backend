@@ -25,6 +25,8 @@ export class MessageLevelingService {
         userTemplate(author_id, author_name),
         'users'
       );
+
+      return { success: "new_entry" };
     }
 
     const keys = Object.keys(dbResponse[0]);

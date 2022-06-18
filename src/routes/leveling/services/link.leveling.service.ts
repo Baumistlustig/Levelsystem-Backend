@@ -14,7 +14,8 @@ export class LinkLevelingService {
 
     const response = await fetch(`https://api.minecraftservices.com/minecraft/profile/lookup/name/${minecraft_username}`);
 
-    const minecraft_id = await response.json();
+    let minecraft_id = await response.json();
+    minecraft_id = Object.values(minecraft_id)[0];
 
     let result = await find(
       { id: `${discord_id}` },
@@ -24,6 +25,12 @@ export class LinkLevelingService {
     if (result[0] === undefined) {
       return { error: "user_does_not_exist" };
     }
+
+    await update(
+      { id: discord_id },
+      { $set: { minecraft_name: minecraft_username } },
+      'users'
+    );
 
     return await update(
       { id: `${discord_id}` },

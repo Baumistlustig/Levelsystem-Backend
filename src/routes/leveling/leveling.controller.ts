@@ -3,6 +3,7 @@ import { LeaderboardLevelingService } from "./services/leaderboard.leveling.serv
 import { GetUserLevelingService } from "./services/getUser.leveling.service";
 import { MessageLevelingService } from "./services/message.leveling.service";
 import { LinkLevelingService } from "./services/link.leveling.service";
+import { SearchLevelingService } from "./services/search.leveling.service";
 
 @Controller('api/leveling')
 export class LevelingController {
@@ -11,6 +12,7 @@ export class LevelingController {
     private readonly getUserService: GetUserLevelingService,
     private readonly messageLevelingService: MessageLevelingService,
     private readonly linkLevelingService: LinkLevelingService,
+    private readonly searchLevelingService: SearchLevelingService,
   ) {  }
 
   @Get('user/:target_id')
@@ -39,5 +41,10 @@ export class LevelingController {
     @Body('minecraft_username') minecraft_username:string
   ): any {
     return this.linkLevelingService.linkUser(author_id, token, minecraft_username) ;
+  }
+
+  @Get('search/:username')
+  search( @Param('username') username: string, ): any {
+    return this.searchLevelingService.searchUser(username);
   }
 }

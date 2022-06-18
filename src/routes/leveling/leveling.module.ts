@@ -4,6 +4,7 @@ import { LeaderboardLevelingService } from "./services/leaderboard.leveling.serv
 import { GetUserLevelingService } from "./services/getUser.leveling.service";
 import { MessageLevelingService } from "./services/message.leveling.service";
 import { LinkLevelingService } from "./services/link.leveling.service";
+import { SearchLevelingService } from "./services/search.leveling.service";
 
 @Module({
   controllers: [LevelingController],
@@ -11,7 +12,8 @@ import { LinkLevelingService } from "./services/link.leveling.service";
     LeaderboardLevelingService,
     GetUserLevelingService,
     MessageLevelingService,
-    LinkLevelingService
+    LinkLevelingService,
+    SearchLevelingService,
   ]
 })
 export class LevelingModule {  }
