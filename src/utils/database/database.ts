@@ -1,15 +1,16 @@
-import { MongoClient } from "mongodb";
-import { databaseConfig } from "./database.config";
+import { MongoClient } from 'mongodb';
+import { databaseConfig } from './database.config';
 
 const db_url = `mongodb://${databaseConfig.HOST}:${databaseConfig.PORT}/`;
 const client = new MongoClient(db_url);
 
-client.connect().then(
-  r =>
+client
+  .connect()
+  .then((r) =>
     console.log(
-      `Connected to ${databaseConfig.HOST}:${databaseConfig.PORT} on database ${databaseConfig.DB}`
-    )
-);
+      `Connected to ${databaseConfig.HOST}:${databaseConfig.PORT} on database ${databaseConfig.DB}`,
+    ),
+  );
 
 const db = client.db(databaseConfig.DB);
 

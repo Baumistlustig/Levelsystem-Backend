@@ -6,5 +6,5 @@ export function userTemplate(discord_id, discord_name) {
     discord_id: `${discord_id}`,
     minecraft_name: ``,
     minecraft_id: ``,
-  }
+  };
 }

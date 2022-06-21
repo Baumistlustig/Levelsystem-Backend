@@ -1,20 +1,16 @@
-import { Injectable } from "@nestjs/common";
-import { find } from "../../../utils/database/database";
+import { Injectable } from '@nestjs/common';
+import { find } from '../../../utils/database/database';
 
 @Injectable()
 export class LeaderboardLevelingService {
   async getLeaderBoard(count) {
-
-    let response = await find(
-      '',
-      'users'
-    );
+    const response = await find('', 'users');
 
     if (response[count - 1] === undefined) {
-      return { error: "Not enough users in database!" };
+      return { error: 'Not enough users in database!' };
     }
 
-    let experiences = {};
+    const experiences = {};
 
     for (let i = 0; i < response.length; i++) {
       const keys = Object.keys(response[i]);
@@ -26,28 +22,25 @@ export class LeaderboardLevelingService {
     }
 
     const ids = Object.keys(experiences);
-    ids.sort(function(a,b){
+    ids.sort(function (a, b) {
       return experiences[b] - experiences[a];
     });
 
-    let usernames = [];
+    const usernames = [];
 
     for (let i = 0; i < ids.length; i++) {
-      let resolution = await find(
-        { id: ids[i] },
-        'users'
-      );
+      const resolution = await find({ id: ids[i] }, 'users');
 
       usernames.push(resolution[0].discord_name);
     }
 
-    let res = [];
+    const res = [];
 
     for (let i = 0; i < count; i++) {
       res.push({
-        "user_id": ids[i],
-        "username": usernames[i],
-        "experience": experiences[ids[i]],
+        user_id: ids[i],
+        username: usernames[i],
+        experience: experiences[ids[i]],
       });
     }
 

@@ -1,32 +1,25 @@
-import { Injectable } from "@nestjs/common";
-import { find, insert, update } from "../../../utils/database/database";
-import { checkToken } from "../../../utils/token/token";
-import { userTemplate } from "../../../utils/database/templates/user.template";
+import { Injectable } from '@nestjs/common';
+import { find, insert, update } from '../../../utils/database/database';
+import { checkToken } from '../../../utils/token/token';
+import { userTemplate } from '../../../utils/database/templates/user.template';
 
 @Injectable()
 export class MessageLevelingService {
   async postMessage(author_id, author_name, token) {
-
-    if (!(checkToken(token))) {
-      return { error: "token_incorrect" }
+    if (!checkToken(token)) {
+      return { error: 'token_incorrect' };
     }
 
-    if (!(author_id) || !(author_name)) {
-      return { error: "no author_id or author_name" };
+    if (!author_id || !author_name) {
+      return { error: 'no author_id or author_name' };
     }
 
-    let dbResponse = await find(
-      { id: author_id },
-      'users'
-    );
+    const dbResponse = await find({ id: author_id }, 'users');
 
     if (dbResponse[0] === undefined) {
-      await insert(
-        userTemplate(author_id, author_name),
-        'users'
-      );
+      await insert(userTemplate(author_id, author_name), 'users');
 
-      return { success: "new_entry" };
+      return { success: 'new_entry' };
     }
 
     const keys = Object.keys(dbResponse[0]);
@@ -34,12 +27,12 @@ export class MessageLevelingService {
       return dbResponse[0][key];
     });
 
-    let experience = (values[2]) += 1;
+    const experience = (values[2] += 1);
 
     await update(
-      { id: `${author_id}`},
+      { id: `${author_id}` },
       { $set: { experience: experience } },
-      'users'
+      'users',
     );
 
     return dbResponse[0];
