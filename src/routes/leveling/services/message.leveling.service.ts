@@ -5,7 +5,7 @@ import { userTemplate } from '../../../utils/database/templates/user.template';
 
 @Injectable()
 export class MessageLevelingService {
-  async postMessage(author_id, author_name, token) {
+  async postMessage(author_id, author_name, token, discord_avatar) {
     if (!checkToken(token)) {
       return { error: 'token_incorrect' };
     }
@@ -17,7 +17,10 @@ export class MessageLevelingService {
     const dbResponse = await find({ id: author_id }, 'users');
 
     if (dbResponse[0] === undefined) {
-      await insert(userTemplate(author_id, author_name), 'users');
+      await insert(
+        userTemplate(author_id, author_name, discord_avatar),
+        'users',
+      );
 
       return { success: 'new_entry' };
     }

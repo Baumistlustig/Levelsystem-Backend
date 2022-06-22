@@ -30,11 +30,13 @@ export class LevelingController {
     @Body('author_id') author_id: string,
     @Body('author_name') author_name: string,
     @Body('token') token: string,
+    @Body('discord_avatar') avatar: string,
   ): any {
     return this.messageLevelingService.postMessage(
       author_id,
       author_name,
       token,
+      avatar,
     );
   }
 
