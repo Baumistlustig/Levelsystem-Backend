@@ -1,18 +1,18 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { LeaderboardLevelingService } from './services/leaderboard.leveling.service';
-import { GetUserLevelingService } from './services/getUser.leveling.service';
-import { MessageLevelingService } from './services/message.leveling.service';
-import { LinkLevelingService } from './services/link.leveling.service';
-import { SearchLevelingService } from './services/search.leveling.service';
+import { LeaderboardService } from './services/leaderboard.service';
+import { GetUserService } from './services/getUser.service';
+import { MessageService } from './services/message.service';
+import { LinkService } from './services/link.service';
+import { SearchService } from './services/search.service';
 
 @Controller('api/leveling')
 export class LevelingController {
   constructor(
-    private readonly leaderboardService: LeaderboardLevelingService,
-    private readonly getUserService: GetUserLevelingService,
-    private readonly messageLevelingService: MessageLevelingService,
-    private readonly linkLevelingService: LinkLevelingService,
-    private readonly searchLevelingService: SearchLevelingService,
+    private readonly leaderboardService: LeaderboardService,
+    private readonly getUserService: GetUserService,
+    private readonly messageLevelingService: MessageService,
+    private readonly linkLevelingService: LinkService,
+    private readonly searchLevelingService: SearchService,
   ) {}
 
   @Get('user/:target_id')

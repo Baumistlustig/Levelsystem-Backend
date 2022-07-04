@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import { databaseConfig } from './database.config';
+import { databaseConfig } from '../../../../../../forum-echo/forum-echo-backend/src/utils/database/database.config';
 
 const db_url = `mongodb://${databaseConfig.HOST}:${databaseConfig.PORT}/`;
 const client = new MongoClient(db_url);

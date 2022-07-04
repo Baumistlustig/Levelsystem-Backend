@@ -5,7 +5,7 @@ import { find, update } from '../../../utils/database/database';
 import fetch from 'node-fetch';
 
 @Injectable()
-export class LinkLevelingService {
+export class LinkService {
   async linkUser(discord_id, token, minecraft_username) {
     if (!checkToken(token)) {
       return { error: 'invalid_access_token' };

@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { LevelingController } from './leveling.controller';
-import { LeaderboardLevelingService } from './services/leaderboard.leveling.service';
-import { GetUserLevelingService } from './services/getUser.leveling.service';
-import { MessageLevelingService } from './services/message.leveling.service';
-import { LinkLevelingService } from './services/link.leveling.service';
-import { SearchLevelingService } from './services/search.leveling.service';
+import { LeaderboardService } from './services/leaderboard.service';
+import { GetUserService } from './services/getUser.service';
+import { MessageService } from './services/message.service';
+import { LinkService } from './services/link.service';
+import { SearchService } from './services/search.service';
 
 @Module({
   controllers: [LevelingController],
   providers: [
-    LeaderboardLevelingService,
-    GetUserLevelingService,
-    MessageLevelingService,
-    LinkLevelingService,
-    SearchLevelingService,
+    LeaderboardService,
+    GetUserService,
+    MessageService,
+    LinkService,
+    SearchService,
   ],
 })
 export class LevelingModule {}

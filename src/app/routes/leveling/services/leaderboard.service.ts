@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { find } from '../../../utils/database/database';
 
 @Injectable()
-export class LeaderboardLevelingService {
+export class LeaderboardService {
   async getLeaderBoard(count) {
     const response = await find('', 'users');
 

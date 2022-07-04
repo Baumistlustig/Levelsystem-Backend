@@ -4,7 +4,7 @@ import { checkToken } from '../../../utils/token/token';
 import { userTemplate } from '../../../utils/database/templates/user.template';
 
 @Injectable()
-export class MessageLevelingService {
+export class MessageService {
   async postMessage(author_id, author_name, token, discord_avatar) {
     if (!checkToken(token)) {
       return { error: 'token_incorrect' };
