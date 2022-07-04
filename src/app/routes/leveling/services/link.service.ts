@@ -18,7 +18,7 @@ export class LinkService {
     let minecraft_id = await response.json();
     minecraft_id = Object.values(minecraft_id)[0];
 
-    const result = await find({ id: `${discord_id}` }, 'users');
+    const result = await find({ id: `${discord_id}` }, 'users', 'levelsystem');
 
     if (result[0] === undefined) {
       return { error: 'user_does_not_exist' };
@@ -28,12 +28,14 @@ export class LinkService {
       { id: discord_id },
       { $set: { minecraft_name: minecraft_username } },
       'users',
+      'levelsystem',
     );
 
     return await update(
       { id: `${discord_id}` },
       { $set: { minecraft_id: minecraft_id } },
       'users',
+      'levelsystem',
     );
   }
 }

@@ -4,7 +4,7 @@ import { find } from '../../../utils/database/database';
 @Injectable()
 export class LeaderboardService {
   async getLeaderBoard(count) {
-    const response = await find('', 'users');
+    const response = await find('', 'users', 'levelsystem');
 
     if (response[count - 1] === undefined) {
       return { error: 'Not enough users in database!' };
@@ -29,7 +29,7 @@ export class LeaderboardService {
     const usernames = [];
 
     for (let i = 0; i < ids.length; i++) {
-      const resolution = await find({ id: ids[i] }, 'users');
+      const resolution = await find({ id: ids[i] }, 'users', 'levelsystem');
 
       usernames.push(resolution[0].discord_name);
     }
