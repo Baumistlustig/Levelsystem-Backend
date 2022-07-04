@@ -14,13 +14,12 @@ export class MessageService {
       return { error: 'no author_id or author_name' };
     }
 
-    const dbResponse = await find({ id: author_id }, 'users', 'levelsystem');
+    const dbResponse = await find({ id: author_id }, 'users');
 
     if (dbResponse[0] === undefined) {
       await insert(
         userTemplate(author_id, author_name, discord_avatar),
         'users',
-        'levelsystem',
       );
 
       return { success: 'new_entry' };
@@ -37,7 +36,6 @@ export class MessageService {
       { id: `${author_id}` },
       { $set: { experience: experience } },
       'users',
-      'levelsystem',
     );
 
     return dbResponse[0];

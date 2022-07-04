@@ -8,11 +8,7 @@ export class GetUserService {
       return { error: 'no_target_id_provided' };
     }
 
-    const dbResponse = await find(
-      { id: `${target_id}` },
-      'users',
-      'levelsystem',
-    );
+    const dbResponse = await find({ id: `${target_id}` }, 'users');
 
     console.log(dbResponse);
 
